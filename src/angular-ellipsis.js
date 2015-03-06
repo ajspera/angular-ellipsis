@@ -22,7 +22,8 @@ angular.module('dibari.angular-ellipsis',[])
 			ngBind				: '=',
 			ellipsisAppend		: '@',
 			ellipsisAppendClick	: '&',
-			ellipsisSymbol		: '@'
+			ellipsisSymbol		: '@',
+			isTruncated           : '='
 		},
 		compile : function(elem, attr, linker) {
 
@@ -34,6 +35,7 @@ angular.module('dibari.angular-ellipsis',[])
 					attributes.lastWindowTimeoutEvent = null;
 				/* State Variables */
 					attributes.isTruncated = false;
+					scope.isTruncated = false;
 
 				function buildEllipsis() {
 					if (typeof(scope.ngBind) !== 'undefined') {
@@ -43,6 +45,7 @@ angular.module('dibari.angular-ellipsis',[])
 							appendString = (typeof(scope.ellipsisAppend) !== 'undefined' && scope.ellipsisAppend !== '') ? ellipsisSymbol + '<span>' + scope.ellipsisAppend + '</span>' : ellipsisSymbol;
 
 						attributes.isTruncated = false;
+						scope.isTruncated = false;
 						element.html(scope.ngBind);
 
 						// If text has overflow
@@ -59,6 +62,7 @@ angular.module('dibari.angular-ellipsis',[])
 
 								if (element[0].scrollHeight < initialMaxHeight || isOverflowed(element) === false) {
 									attributes.isTruncated = true;
+									scope.isTruncated = true;
 									break;
 								}
 							}
