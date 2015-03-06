@@ -34,8 +34,10 @@ angular.module('dibari.angular-ellipsis',[])
 					attributes.lastWindowResizeHeight = 0;
 					attributes.lastWindowTimeoutEvent = null;
 				/* State Variables */
+					var readTruncate = attributes.isTruncated;
 					attributes.isTruncated = false;
-					scope.isTruncated = false;
+					if(readTruncate)
+						scope.isTruncated = false;
 
 				function buildEllipsis() {
 					if (typeof(scope.ngBind) !== 'undefined') {
@@ -45,7 +47,8 @@ angular.module('dibari.angular-ellipsis',[])
 							appendString = (typeof(scope.ellipsisAppend) !== 'undefined' && scope.ellipsisAppend !== '') ? ellipsisSymbol + '<span>' + scope.ellipsisAppend + '</span>' : ellipsisSymbol;
 
 						attributes.isTruncated = false;
-						scope.isTruncated = false;
+						if(readTruncate)
+							scope.isTruncated = false;
 						element.html(scope.ngBind);
 
 						// If text has overflow
@@ -62,7 +65,8 @@ angular.module('dibari.angular-ellipsis',[])
 
 								if (element[0].scrollHeight < initialMaxHeight || isOverflowed(element) === false) {
 									attributes.isTruncated = true;
-									scope.isTruncated = true;
+									if(readTruncate)
+										scope.isTruncated = true;
 									break;
 								}
 							}
